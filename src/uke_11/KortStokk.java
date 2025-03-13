@@ -1,17 +1,19 @@
 package uke_11;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import uke_11.KortVerdi;
 import uke_11.KortFarge;
 import uke_11.Kort;
 
-public class KortStokk {
+public class KortStokk implements Iterable<Kort>{
 	
 	private LinkedList<Kort> kortstokk;
 	
-	public void KortStokk(int antall) {
+	public void kortStokk(int antall) {
 		kortstokk = new LinkedList<>();
 		for(KortFarge farge : KortFarge.values()) {
 			for(KortVerdi verdi : KortVerdi.values()) {
@@ -30,4 +32,10 @@ public class KortStokk {
 			throw new IllegalStateException("Kortstokken er tom");
 		}
 	}
+	//B)
+	@Override
+	public Iterator<Kort> iterator() {
+		return (Iterator<Kort>) new LinkedList<Kort>(kortstokk);
+	}
+	
 }
