@@ -21,26 +21,28 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-        Person Erik = new Person("Erik", "fotball", "geoguessr", "venner", "data");
-        Person Felix = new Person("Felix", "fotball", "gaming", "tur", "musikk", "geoguessr");
+        Person Erik = new Person("Erik", "fotball", "geoguessr", "venner", "film", "slalom", "biljard");
+        Person Felix = new Person("Felix", "fotball", "gaming", "tur", "musikk", "amime", "geoguessr");
         Person Brede = new Person("Brede", "anime", "soving", "fotball", "film");
         Person Sigurd = new Person("Sigurd", "biljard", "anime", "gaming", "slalom");
 
-        // Bruk LenketMengde for å lagre matchene og poengene
         LenketMengde<String> matchResultater = new LenketMengde<>();
 
         int matchErikFelix = match(Erik, Felix);
-        matchResultater.leggTil("Match mellom Erik og Felix: " + (matchErikFelix < 0 ? 0 : matchErikFelix));
+        matchResultater.leggTil("Erik og Felix: " + (matchErikFelix < 0 ? 0 : matchErikFelix));
 
         int matchErikSigurd = match(Erik, Sigurd);
-        matchResultater.leggTil("Match mellom Erik og Sigurd: " + (matchErikSigurd < 0 ? 0 : matchErikSigurd));
+        matchResultater.leggTil("Erik og Sigurd: " + (matchErikSigurd < 0 ? 0 : matchErikSigurd));
 
         int matchBredeFelix = match(Brede, Felix);
-        matchResultater.leggTil("Match mellom Brede og Felix: " + (matchBredeFelix < 0 ? 0 : matchBredeFelix));
+        matchResultater.leggTil("Brede og Felix: " + (matchBredeFelix < 0 ? 0 : matchBredeFelix));
 
         int matchErikBrede = match(Erik, Brede);
-        matchResultater.leggTil("Match mellom Erik og Brede: " + (matchErikBrede < 0 ? 0 : matchErikBrede));
+        matchResultater.leggTil("Erik og Brede: " + (matchErikBrede < 0 ? 0 : matchErikBrede));
 
+        int matchSigurdBrede = match(Sigurd, Brede);
+        matchResultater.leggTil("Sigurd og Brede: " + (matchSigurdBrede < 0 ? 0 : matchSigurdBrede));
+        
         String bestMatch = finnBesteMatch(matchResultater);
 
         Object[] resultaterObject = matchResultater.tilTabell();
@@ -52,28 +54,33 @@ public class MatchMain {
     }
     
     public static String finnBesteMatch(LenketMengde<String> resultater) {
-        String bestMatch = "";
+        StringBuilder bestMatches = new StringBuilder();
         int maxScore = -1;
         
         Object[] resultaterArray = resultater.tilTabell();
 
         for (int i = 0; i < resultaterArray.length; i++) {
             String resultat = (String) resultaterArray[i];
-            // Splitter resultatet for å få poengsummen
+          
             String[] parts = resultat.split(": ");
             if (parts.length == 2) {
                 try {
                     int score = Integer.parseInt(parts[1]); 
                     if (score > maxScore) { 
-                        maxScore = score; 
-                        bestMatch = parts[0];
+                        maxScore = score;
+                        bestMatches.setLength(0); 
+                        bestMatches.append(parts[0]);
+                    } else if (score == maxScore) {
+                        bestMatches.append(", ").append(parts[0]);
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Feil i poeng: " + parts[1]);
                 }
             }
         }
-        return bestMatch;
+
+        return bestMatches.toString();
     }
+
 
 }
