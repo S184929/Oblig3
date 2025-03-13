@@ -13,4 +13,5 @@ public enum KortFarge {
 	public String toString() {
 		return symbol;
 	}
+	
 }
