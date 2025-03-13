@@ -177,12 +177,10 @@ public class mengdeTest {
 	}
 	@Test
 	public void testTilTabell() { 
-	
-		Integer[] resultat = (Integer[]) lenketMengde.tilTabell();
-
-	    // Sjekk lengde og innhold
-	    assertEquals(3, resultat.length, "Tabellen skal ha riktig antall elementer");
-	    Integer[] forventet = {1, 2, 3};
-	    assertArrayEquals(forventet, resultat, "Tabellen skal ha korrekt innhold og rekkefølge");
-	}
+		    Integer[] resultat = (Integer[]) lenketMengde.tilTabell();
+		    assertEquals(3, resultat.length, "Tabellen skal ha riktig antall elementer");
+		    Integer[] forventet = {3, 2, 1}; // Matcher rekkefølgen i listen
+		    assertArrayEquals(forventet, resultat, "Tabellen skal ha korrekt innhold og rekkefølge");
+		}
 }
+
