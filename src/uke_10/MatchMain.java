@@ -17,9 +17,7 @@ public class MatchMain {
         int antallTotalt = hobbyerA.antallElementer() + hobbyerB.antallElementer() - antallFelles;
 
         return (int) antallFelles - ((antallKunHosDenEne + antallKunHosDenAndre) / antallTotalt);
-        
     }
-    
 
     public static void main(String[] args) {
 
@@ -28,6 +26,7 @@ public class MatchMain {
         Person Brede = new Person("Brede", "anime", "soving", "fotball", "film");
         Person Sigurd = new Person("Sigurd", "biljard", "anime", "gaming", "slalom");
 
+        // Bruk LenketMengde for å lagre matchene og poengene
         LenketMengde<String> matchResultater = new LenketMengde<>();
 
         int matchErikFelix = match(Erik, Felix);
@@ -38,18 +37,43 @@ public class MatchMain {
 
         int matchBredeFelix = match(Brede, Felix);
         matchResultater.leggTil("Match mellom Brede og Felix: " + (matchBredeFelix < 0 ? 0 : matchBredeFelix));
-        
+
         int matchErikBrede = match(Erik, Brede);
         matchResultater.leggTil("Match mellom Erik og Brede: " + (matchErikBrede < 0 ? 0 : matchErikBrede));
 
-        Object[] resultaterObject = matchResultater.tilTabell();
+        String bestMatch = finnBesteMatch(matchResultater);
 
-        String[] resultater = new String[resultaterObject.length];
-        for (int i = 0; i < resultaterObject.length; i++) {
-        	resultater[i] = (String) resultaterObject[i];
+        Object[] resultaterObject = matchResultater.tilTabell();
+        for (Object resultat : resultaterObject) {
+            System.out.println(resultat);
         }
-        for (int i = 0; i < resultater.length; i++) {
-            System.out.println(resultater[i]);
-        }
+
+        System.out.println("Den beste matchen er: " + bestMatch);
     }
+    
+    public static String finnBesteMatch(LenketMengde<String> resultater) {
+        String bestMatch = "";
+        int maxScore = -1;
+        
+        Object[] resultaterArray = resultater.tilTabell();
+
+        for (int i = 0; i < resultaterArray.length; i++) {
+            String resultat = (String) resultaterArray[i];
+            // Splitter resultatet for å få poengsummen
+            String[] parts = resultat.split(": ");
+            if (parts.length == 2) {
+                try {
+                    int score = Integer.parseInt(parts[1]); 
+                    if (score > maxScore) { 
+                        maxScore = score; 
+                        bestMatch = parts[0];
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Feil i poeng: " + parts[1]);
+                }
+            }
+        }
+        return bestMatch;
+    }
+
 }
