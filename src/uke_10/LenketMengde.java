@@ -1,5 +1,7 @@
 package uke_10;
 
+import java.lang.reflect.Array;
+
 public class LenketMengde<T> implements MengdeADT<T> {
     
     public static class Node<T> {
@@ -160,18 +162,21 @@ public class LenketMengde<T> implements MengdeADT<T> {
     }
 
     @Override
-    public T[] tilTabell() {   //går fra lenketliste til en arrayliste
+    public T[] tilTabell() {
+        if (antall == 0) {
+            @SuppressWarnings("unchecked")
+            T[] tomTabell = (T[]) Array.newInstance(Object.class, 0);
+            return tomTabell;
+        }
         @SuppressWarnings("unchecked")
-        T[] tabell = (T[]) new Object[antall];
-        Node<T> p = forste; 
+        T[] tabell = (T[]) Array.newInstance(forste.element.getClass(), antall);
+        Node<T> p = forste;
         int index = 0;
-
         while (p != null) {
             tabell[index] = p.element;
             p = p.neste;
             index++;
         }
-
         return tabell;
     }
 
@@ -179,4 +184,10 @@ public class LenketMengde<T> implements MengdeADT<T> {
     public int antallElementer() {
         return antall;
     }
+
+	@Override
+	public T[] tilTabell(T[] array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
