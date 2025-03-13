@@ -9,7 +9,7 @@ public class PokerHand {
 	private static final int MAX_KORT = 5;
 	
 	
-	public PokerHand(int antall) {
+	public PokerHand() {
 		hand = new ArrayList<>();
 	}
 		
@@ -30,18 +30,6 @@ public class PokerHand {
 			}
 		}
 	}
-	public static void main(String[] args) {
-		KortStokk stokk = new KortStokk(0);
-		stokk.Shuffle();
-		
-		PokerHand phand = new PokerHand(0);
-		for(int i = 0; i < MAX_KORT; i++) {
-			phand.leggTilKort(stokk.trekkKort());
-		}
-		phand.flush();
-		
-		phand.skrivUt();
-	}
 	public void flush() {
 		if(hand.isEmpty()) {
 			throw new IllegalStateException("Hånden er tom.");
@@ -54,5 +42,16 @@ public class PokerHand {
 			}
 		}
 		System.out.println("Du har flush!");
+	}
+	public static void main(String[] args) {
+		KortStokk stokk = new KortStokk();
+		stokk.Shuffle();
+		
+		PokerHand phand = new PokerHand();
+		for(int i = 0; i < MAX_KORT; i++) {
+			phand.leggTilKort(stokk.trekkKort());
+		}
+		phand.flush();
+		phand.skrivUt();
 	}
 }
