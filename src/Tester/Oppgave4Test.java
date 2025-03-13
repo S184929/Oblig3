@@ -1,4 +1,4 @@
-package uke_10;
+package Tester;
 
 import static org.junit.jupiter.api.Assertions.*;
 
