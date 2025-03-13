@@ -27,7 +27,7 @@ public class KortStokk {
 		if(!kortstokk.isEmpty()) {
 			return kortstokk.removeFirst();
 		} else {
-			
+			throw new IllegalStateException("Kortstokken er tom");
 		}
 	}
 }
