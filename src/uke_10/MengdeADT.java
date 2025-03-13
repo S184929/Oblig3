@@ -89,5 +89,7 @@ public interface MengdeADT<T> {
 	 * @return Antall elementer i mengden.
 	 */
 	int antallElementer();
+	T[] tilTabell(T[] array);
+
 	
 }

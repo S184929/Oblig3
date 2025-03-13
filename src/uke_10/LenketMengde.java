@@ -161,7 +161,7 @@ public class LenketMengde<T> implements MengdeADT<T> {
     }
 
     @Override
-    public T[] tilTabell() {
+    public T[] tilTabell() {   //går fra lenketliste til en arrayliste
         @SuppressWarnings("unchecked")
         T[] tabell = (T[]) new Object[antall];
         Node<T> p = forste;  // Bruk forste her
