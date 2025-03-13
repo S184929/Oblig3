@@ -38,8 +38,15 @@ public class KortStokk implements Iterable<Kort>{
 		return kortstokk.iterator();
 	}
 	public void skrivUt() {
+		int antall = 0;
 		for (Kort kort : this) {
-			System.out.println(kort);
+			System.out.print(kort + " ");
+			antall++;
+			if(antall == 10) {
+				System.out.println();
+				antall = 0;
+			}
+			
 		}
 	}
 	
@@ -50,13 +57,13 @@ public class KortStokk implements Iterable<Kort>{
 		System.out.println("Ustokket kortstokk: "); 
 		stokk.skrivUt();
 		
-		System.out.println("\nStokker kortstokken: ");
+		System.out.println("\n\nStokker kortstokken... ");
 		stokk.Shuffle();
 		
-		System.out.println("\nStokket kortstokk: ");
+		System.out.println("Stokket kortstokk: ");
 		stokk.skrivUt();
 		
-		System.out.println("\nTrekkt kort: ");
+		System.out.println("\n\nTrekt kort: ");
 		System.out.println(stokk.trekkKort());
 		
 		
