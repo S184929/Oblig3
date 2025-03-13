@@ -2,7 +2,6 @@ package uke_10;
 
 public class LenketMengde<T> implements MengdeADT<T> {
     
-    // Node-klassen som brukes til å representere hvert element i listen
     public static class Node<T> {
         T element;
         Node<T> neste;
@@ -13,7 +12,7 @@ public class LenketMengde<T> implements MengdeADT<T> {
         }
     }
 
-    Node<T> forste;  // Endre fra hode til forste
+    Node<T> forste; 
     private int antall;
 
     public LenketMengde() {
@@ -23,12 +22,12 @@ public class LenketMengde<T> implements MengdeADT<T> {
 
     @Override
     public boolean erTom() {
-        return forste == null;  // Bruk forste her
+        return forste == null;  
     }
 
     @Override
     public boolean inneholder(T element) {
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste;  
         while (p != null) {
             if (p.element.equals(element)) {
                 return true;
@@ -40,14 +39,14 @@ public class LenketMengde<T> implements MengdeADT<T> {
 
     @Override
     public boolean erDelmengdeAv(MengdeADT<T> annenMengde) {
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste; 
         while (p != null) {
             if (!annenMengde.inneholder(p.element)) {
-                return false;  // Return false if any element is not in annenMengde
+                return false;  
             }
             p = p.neste;
         }
-        return true;  // All elements are contained in annenMengde
+        return true;  
     }
 
     @Override
@@ -60,21 +59,21 @@ public class LenketMengde<T> implements MengdeADT<T> {
 
     @Override
     public boolean erDisjunkt(MengdeADT<T> annenMengde) {
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste; 
 
         while (p != null) {
             if (annenMengde.inneholder(p.element)) {
-                return false; // Return false if any element is found in annenMengde
+                return false;
             }
             p = p.neste;
         }
-        return true;  // No common elements
+        return true;  
     }
 
     @Override
     public MengdeADT<T> snitt(MengdeADT<T> annenMengde) {
         MengdeADT<T> resultat = new LenketMengde<>();
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste; 
 
         while (p != null) {
             if (annenMengde.inneholder(p.element)) {
@@ -88,14 +87,14 @@ public class LenketMengde<T> implements MengdeADT<T> {
     @Override
     public MengdeADT<T> union(MengdeADT<T> annenMengde) {
         MengdeADT<T> resultat = new LenketMengde<>();
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste;  
 
         while (p != null) {
             resultat.leggTil(p.element);
             p = p.neste;
         }
 
-        Node<T> k = ((LenketMengde<T>) annenMengde).forste;  // Bruk forste her
+        Node<T> k = ((LenketMengde<T>) annenMengde).forste;  
         while (k != null) {
             if (!resultat.inneholder(k.element)) {
                 resultat.leggTil(k.element);
@@ -108,7 +107,7 @@ public class LenketMengde<T> implements MengdeADT<T> {
     @Override
     public MengdeADT<T> minus(MengdeADT<T> annenMengde) {
         MengdeADT<T> resultat = new LenketMengde<>();
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste;  
 
         while (p != null) {
             if (!annenMengde.inneholder(p.element)) {
@@ -123,15 +122,15 @@ public class LenketMengde<T> implements MengdeADT<T> {
     public void leggTil(T element) {
         if (!inneholder(element)) {
             Node<T> ny = new Node<>(element);
-            ny.neste = forste;  // Sett ny node som forste
-            forste = ny;  // Sett ny node som forste
+            ny.neste = forste; 
+            forste = ny; 
             antall++;
         }
     }
 
     @Override
     public void leggTilAlleFra(MengdeADT<T> annenMengde) {
-        Node<T> p = ((LenketMengde<T>) annenMengde).forste;  // Bruk forste her
+        Node<T> p = ((LenketMengde<T>) annenMengde).forste;  
 
         while (p != null) {
             leggTil(p.element);
@@ -142,14 +141,14 @@ public class LenketMengde<T> implements MengdeADT<T> {
     @Override
     public T fjern(T element) {
         Node<T> forrige = null;
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste; 
 
         while (p != null) {
             if (p.element.equals(element)) {
-                if (forrige == null) {  // Hvis elementet er i forste
-                    forste = p.neste;  // Fjern forste og sett nytt forste
+                if (forrige == null) {  
+                    forste = p.neste;  
                 } else {
-                    forrige.neste = p.neste;  // Koble over elementet som skal fjernes
+                    forrige.neste = p.neste; 
                 }
                 antall--;
                 return p.element;
@@ -157,14 +156,14 @@ public class LenketMengde<T> implements MengdeADT<T> {
             forrige = p;
             p = p.neste;
         }
-        return null;  // Return null hvis elementet ikke ble funnet
+        return null;
     }
 
     @Override
     public T[] tilTabell() {
         @SuppressWarnings("unchecked")
         T[] tabell = (T[]) new Object[antall];
-        Node<T> p = forste;  // Bruk forste her
+        Node<T> p = forste; 
         int index = 0;
 
         while (p != null) {
