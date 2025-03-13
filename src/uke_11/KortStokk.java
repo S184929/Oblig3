@@ -13,7 +13,7 @@ public class KortStokk implements Iterable<Kort>{
 	
 	private LinkedList<Kort> kortstokk;
 	
-	public void kortStokk(int antall) {
+	public KortStokk(int antall) {
 		kortstokk = new LinkedList<>();
 		for(KortFarge farge : KortFarge.values()) {
 			for(KortVerdi verdi : KortVerdi.values()) {
@@ -35,7 +35,30 @@ public class KortStokk implements Iterable<Kort>{
 	//B)
 	@Override
 	public Iterator<Kort> iterator() {
-		return (Iterator<Kort>) new LinkedList<Kort>(kortstokk);
+		return kortstokk.iterator();
+	}
+	public void skrivUt() {
+		for (Kort kort : this) {
+			System.out.println(kort);
+		}
 	}
 	
+	public static void main(String[] args) {
+		
+		KortStokk stokk = new KortStokk(52);
+		
+		System.out.println("Ustokket kortstokk: "); 
+		stokk.skrivUt();
+		
+		System.out.println("\nStokker kortstokken: ");
+		stokk.Shuffle();
+		
+		System.out.println("\nStokket kortstokk: ");
+		stokk.skrivUt();
+		
+		System.out.println("\nTrekket kort: ");
+		System.out.println(stokk.trekkKort());
+		
+		
+	}
 }
