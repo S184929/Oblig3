@@ -185,9 +185,5 @@ public class LenketMengde<T> implements MengdeADT<T> {
         return antall;
     }
 
-	@Override
-	public T[] tilTabell(T[] array) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
